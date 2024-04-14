@@ -1,3 +1,5 @@
+from noise_forward import *
+
 def load_base_model(args):
     print(f"Load model...")
     if  args["model"] == 'bert':
