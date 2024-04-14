@@ -83,16 +83,9 @@ def text_dataset(dataset, args):
         dataset = load_dataset("ag_news")
         test, train = dataset['test'], dataset['train']
         
-        train_split = train.train_test_split(test_size=0.5, seed=0)
-        test_split = test.train_test_split(test_size=0.3, seed=0)
-        
-        train = train_split['test']
-        test = test_split['test']
-        
-        train_dev_split = train.train_test_split(test_size=0.10, seed=0)
-        
-        train = train_dev_split['train']
-        dev = train_dev_split['test']
+        split = train.train_test_split(test_size=0.10, seed=0)
+        train = split['train']
+        dev = split['test']
 
     elif dataset == 'imdb':
         args['num_classes'] = 2
@@ -100,16 +93,9 @@ def text_dataset(dataset, args):
         dataset = load_dataset("imdb")
         test, train = dataset['test'], dataset['train']
         
-        train_split = train.train_test_split(test_size=0.5, seed=0)
-        test_split = test.train_test_split(test_size=0.3, seed=0)
-        
-        train = train_split['test']
-        test = test_split['test']
-        
-        train_dev_split = train.train_test_split(test_size=0.10, seed=0)
-        
-        train = train_dev_split['train']
-        dev = train_dev_split['test']
+        split = train.train_test_split(test_size=0.10, seed=0)
+        train = split['train']
+        dev = split['test']
         
 
     else:
