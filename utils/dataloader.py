@@ -39,8 +39,8 @@ def trans_dataloader(dataset, tokenizer, args, data_collator=None):
         dataset = load_dataset("imdb")
         test, train = dataset['test'], dataset['train']
         
-        train_split = train.train_test_split(test_size=0.05, seed=0)
-        test_split = test.train_test_split(test_size=0.03, seed=0)
+        train_split = train.train_test_split(test_size=0.5, seed=0)
+        test_split = test.train_test_split(test_size=0.3, seed=0)
         
         train = train_split['test']
         test = test_split['test']
