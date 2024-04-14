@@ -1,5 +1,5 @@
 from transformers.modeling_outputs import BaseModelOutputWithPastAndCrossAttentions
-
+import torch
 def load_base_model(args):
     print(f"Load model...")
     if  args["model"] == 'bert':
