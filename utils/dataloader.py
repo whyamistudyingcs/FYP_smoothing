@@ -21,10 +21,17 @@ def trans_dataloader(dataset, tokenizer, args, data_collator=None):
         args['num_classes'] = 4
         dataset = load_dataset("ag_news")
         test, train = dataset['test'], dataset['train']
-
-        split = train.train_test_split(test_size=0.10, seed=0)
-        train = split['train']
-        dev = split['test']
+        
+        train_split = train.train_test_split(test_size=0.5, seed=0)
+        test_split = test.train_test_split(test_size=0.3, seed=0)
+        
+        train = train_split['test']
+        test = test_split['test']
+        
+        train_dev_split = train.train_test_split(test_size=0.10, seed=0)
+        
+        train = train_dev_split['train']
+        dev = train_dev_split['test']
 
     elif dataset == 'imdb':
         args['num_classes'] = 2
@@ -33,7 +40,7 @@ def trans_dataloader(dataset, tokenizer, args, data_collator=None):
         test, train = dataset['test'], dataset['train']
         
         train_split = train.train_test_split(test_size=0.5, seed=0)
-        test_split = test.train_test_split(test_size=0.5, seed=0)
+        test_split = test.train_test_split(test_size=0.3, seed=0)
         
         train = train_split['test']
         test = test_split['test']

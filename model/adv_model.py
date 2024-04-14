@@ -258,10 +258,10 @@ class SeqClsWrapper(nn.Module):
         for j, n_a_ in enumerate(n_a):
             
             # Test null hypothesis that no less than 50% of samples that are predicted as dominant class
-            p_val = binomtest(n_a_, num_ensemble, p=0.5, alternative='less')
+            result = binomtest(n_a_, num_ensemble, p=0.5, alternative='less')
             
             # Hypothesis rejected, Do rand grad mask 
-            if p_val < self.alpha_p:
+            if result.pvalue < self.alpha_p:
                 input_ids_ = input_ids[j].unsqueeze(0)
                 attn_m = attention_mask[j].unsqueeze(0)
                 
