@@ -75,3 +75,47 @@ def trans_dataloader(dataset, tokenizer, args, data_collator=None):
     dev_dataloader = DataLoader(dev_set, batch_size=args["batch_size"], shuffle=True, collate_fn=data_collator)
 
     return train_dataloader, test_dataloader, dev_dataloader
+
+def text_dataset(dataset, args):
+    if dataset == 'ag':
+        """0,1,2,3: world, sports, buisiness, Sci/Tech """
+        args['num_classes'] = 4
+        dataset = load_dataset("ag_news")
+        test, train = dataset['test'], dataset['train']
+        
+        train_split = train.train_test_split(test_size=0.5, seed=0)
+        test_split = test.train_test_split(test_size=0.3, seed=0)
+        
+        train = train_split['test']
+        test = test_split['test']
+        
+        train_dev_split = train.train_test_split(test_size=0.10, seed=0)
+        
+        train = train_dev_split['train']
+        dev = train_dev_split['test']
+
+    elif dataset == 'imdb':
+        args['num_classes'] = 2
+        """ Sentiment polarity datasets: binary 0:neg/1:pos """
+        dataset = load_dataset("imdb")
+        test, train = dataset['test'], dataset['train']
+        
+        train_split = train.train_test_split(test_size=0.5, seed=0)
+        test_split = test.train_test_split(test_size=0.3, seed=0)
+        
+        train = train_split['test']
+        test = test_split['test']
+        
+        train_dev_split = train.train_test_split(test_size=0.10, seed=0)
+        
+        train = train_dev_split['train']
+        dev = train_dev_split['test']
+        
+
+    else:
+        raise Exception("Specify dataset correctly")
+
+    print(f"Trainset Size: {len(train)}")
+    print(f"Testset Size: {len(test)}")
+
+return train, test
