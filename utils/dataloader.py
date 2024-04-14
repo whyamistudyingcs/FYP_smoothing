@@ -104,4 +104,4 @@ def text_dataset(dataset, args):
     print(f"Trainset Size: {len(train)}")
     print(f"Testset Size: {len(test)}")
 
-return train, test
+    return train, test
